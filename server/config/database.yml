@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  host: postgres
+  username: postgres
+  port: 5432
+
+development:
+  <<: *default
+  database: inception_development
+
+test:
+  <<: *default
+  database: inception_test
+
+production:
+  <<: *default
+  database: inception_production
+  username: inception
+  password: <%= ENV['INCEPTION_DATABASE_PASSWORD'] %>
