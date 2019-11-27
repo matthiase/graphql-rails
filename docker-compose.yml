@@ -6,7 +6,6 @@ services:
       - 5432
     volumes:
       - postgres:/var/lib/postgresql/data
-
   server:
     build: ./server
     environment:
@@ -20,7 +19,18 @@ services:
       - bundle:/bundle
     links:
       - postgres
-
+  client:
+    build: './client'
+    command: sh -c "yarn && yarn serve"
+    ports:
+      - '8080:8080'
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    links:
+      - server
 volumes:
   postgres:
     external: false
